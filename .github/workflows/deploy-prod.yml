@@ -1,0 +1,48 @@
+name: Deploy Prod
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
+
+env:
+  TF_DIR: terraform/environments/prod
+  AWS_REGION: us-east-1
+
+jobs:
+  deploy:
+    name: Terraform apply DocumentDB
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.8"
+          terraform_wrapper: false
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Terraform init
+        working-directory: ${{ env.TF_DIR }}
+        run: terraform init -input=false
+
+      - name: Terraform apply
+        working-directory: ${{ env.TF_DIR }}
+        run: terraform apply -auto-approve -input=false
+
+      - name: Export outputs
+        working-directory: ${{ env.TF_DIR }}
+        run: |
+          echo "cluster_endpoint=$(terraform output -raw cluster_endpoint)"
+          echo "Atualize o GitHub Secret MONGO_URL no repo infra-kubernetes com: terraform output -raw mongo_url"

@@ -1,0 +1,8 @@
+aws_region              = "us-east-1"
+project_name            = "tech-challenge"
+environment             = "prod"
+database_name           = "techChallenge"
+master_username         = "techchallenge"
+instance_class          = "db.t3.medium"
+instance_count          = 1
+backup_retention_period = 7
