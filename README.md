@@ -1,5 +1,7 @@
 # infra-database — banco gerenciado
 
+Terraform do RDS PostgreSQL 16 (`tech-challenge-prod-pg`, database `techchallenge`). Instância **privada**: o console AWS mostra o recurso, não as tabelas. Schema e ER: [modelo-de-dados](https://github.com/tech-challenge-pos-fiap-debora/app/blob/main/docs/modelo-de-dados.md).
+
 ## Propósito
 
 Provisiona o **RDS PostgreSQL** na VPC do lab. É o repositório Terraform do banco gerenciado exigido pelo Tech Challenge. A API NestJS, a Lambda de autenticação e o Job de migrations conectam na mesma instância via `DATABASE_URL`.
@@ -60,6 +62,12 @@ flowchart LR
 
 Modelo de dados: [modelo-de-dados](https://github.com/tech-challenge-pos-fiap-debora/app/blob/main/docs/modelo-de-dados.md).
 
+## Deploy ativo (produção)
+
+RDS PostgreSQL 16 na VPC `tech-challenge` (endpoint interno, sem exposição pública). A API e a Lambda conectam via `DATABASE_URL`.
+
+Swagger da oficina: http://k8s-techchal-api-3be88fc582-917637512.us-east-1.elb.amazonaws.com/api
+
 ## APIs
 
-Este repositório não expõe HTTP. Swagger da oficina: http://localhost:3000/api
+Este repositório não expõe HTTP.
