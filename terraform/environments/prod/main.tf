@@ -28,8 +28,8 @@ data "aws_subnets" "private" {
   }
 }
 
-module "documentdb" {
-  source = "../../modules/documentdb"
+module "rds" {
+  source = "../../modules/rds-postgres"
 
   project_name            = var.project_name
   environment             = var.environment
@@ -39,7 +39,8 @@ module "documentdb" {
   database_name           = var.database_name
   master_username         = var.master_username
   instance_class          = var.instance_class
-  instance_count          = var.instance_count
+  engine_version          = var.engine_version
+  allocated_storage       = var.allocated_storage
   backup_retention_period = var.backup_retention_period
   tags                    = local.common_tags
 }

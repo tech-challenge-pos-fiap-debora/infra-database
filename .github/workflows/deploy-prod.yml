@@ -15,7 +15,7 @@ env:
 
 jobs:
   deploy:
-    name: Terraform apply DocumentDB
+    name: Terraform apply RDS
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -44,5 +44,5 @@ jobs:
       - name: Export outputs
         working-directory: ${{ env.TF_DIR }}
         run: |
-          echo "cluster_endpoint=$(terraform output -raw cluster_endpoint)"
-          echo "Atualize o GitHub Secret MONGO_URL no repo infra-kubernetes com: terraform output -raw mongo_url"
+          echo "endpoint=$(terraform output -raw endpoint)"
+          echo "Atualize a connection string com: terraform output -raw connection_url"

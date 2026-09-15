@@ -20,7 +20,7 @@ variable "private_subnet_ids" {
 
 variable "database_name" {
   type    = string
-  default = "techChallenge"
+  default = "techchallenge"
 }
 
 variable "master_username" {
@@ -30,12 +30,17 @@ variable "master_username" {
 
 variable "instance_class" {
   type    = string
-  default = "db.t3.medium"
+  default = "db.t3.micro"
 }
 
-variable "instance_count" {
+variable "allocated_storage" {
   type    = number
-  default = 1
+  default = 20
+}
+
+variable "engine_version" {
+  type    = string
+  default = "16"
 }
 
 variable "backup_retention_period" {

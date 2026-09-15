@@ -1,20 +1,24 @@
-output "cluster_endpoint" {
-  value = module.documentdb.cluster_endpoint
+output "endpoint" {
+  value = module.rds.endpoint
 }
 
-output "cluster_port" {
-  value = module.documentdb.cluster_port
+output "port" {
+  value = module.rds.port
 }
 
 output "security_group_id" {
-  value = module.documentdb.security_group_id
+  value = module.rds.security_group_id
 }
 
 output "master_username" {
-  value = module.documentdb.master_username
+  value = module.rds.master_username
 }
 
-output "mongo_url" {
-  value     = module.documentdb.mongo_url
+output "database_name" {
+  value = module.rds.database_name
+}
+
+output "connection_url" {
+  value     = module.rds.connection_url
   sensitive = true
 }
