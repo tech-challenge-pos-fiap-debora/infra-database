@@ -22,3 +22,19 @@ output "connection_url" {
   value     = module.rds.connection_url
   sensitive = true
 }
+
+# URLs dos microsserviços (mesmo host/user; rode scripts/create-ms-databases.sh antes).
+output "billing_connection_url" {
+  value     = replace(module.rds.connection_url, "/${var.database_name}", "/billing")
+  sensitive = true
+}
+
+output "stock_connection_url" {
+  value     = replace(module.rds.connection_url, "/${var.database_name}", "/stock")
+  sensitive = true
+}
+
+output "identity_connection_url" {
+  value     = replace(module.rds.connection_url, "/${var.database_name}", "/identity")
+  sensitive = true
+}
