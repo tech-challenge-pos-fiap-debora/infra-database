@@ -25,6 +25,25 @@ Não há Dockerfile: só Terraform.
 
 Depois do apply, copie `connection_url` para o secret `DATABASE_URL` nos repos `infra-kubernetes` e `lambda-auth`.
 
+<<<<<<< Updated upstream
+=======
+Para os microsserviços Postgres, crie os databases na mesma instância (script idempotente) e configure os secrets no `infra-kubernetes`:
+
+```bash
+export CONNECTION_URL="$(terraform -chdir=terraform/environments/prod output -raw connection_url)"
+./scripts/create-ms-databases.sh
+# outputs: billing_connection_url / stock_connection_url / identity_connection_url
+```
+
+| Secret | Database |
+|---|---|
+| `BILLING_DATABASE_URL` | `/billing` |
+| `STOCK_DATABASE_URL` | `/stock` |
+| `IDENTITY_DATABASE_URL` | `/identity` |
+
+O **order-service** usa MongoDB in-cluster no EKS (o lab não libera DocumentDB).
+
+>>>>>>> Stashed changes
 ## Execução
 
 ```bash
