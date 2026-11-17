@@ -24,17 +24,19 @@ output "connection_url" {
 }
 
 # URLs dos microsserviços (mesmo host/user; rode scripts/create-ms-databases.sh antes).
+# O usuário master tem o mesmo nome do database, então a troca precisa ficar
+# ancorada no fim da URL para não alterar o usuário.
 output "billing_connection_url" {
-  value     = replace(module.rds.connection_url, "/${var.database_name}", "/billing")
+  value     = replace(module.rds.connection_url, "/\\/${var.database_name}$/", "/billing")
   sensitive = true
 }
 
 output "stock_connection_url" {
-  value     = replace(module.rds.connection_url, "/${var.database_name}", "/stock")
+  value     = replace(module.rds.connection_url, "/\\/${var.database_name}$/", "/stock")
   sensitive = true
 }
 
 output "identity_connection_url" {
-  value     = replace(module.rds.connection_url, "/${var.database_name}", "/identity")
+  value     = replace(module.rds.connection_url, "/\\/${var.database_name}$/", "/identity")
   sensitive = true
 }
